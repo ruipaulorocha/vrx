@@ -137,6 +137,7 @@ def ball_shooter(model_name):
 def thrust(model_name, side):
     return Bridge(
         gz_topic=f'{model_name}/thrusters/{side}/thrust',
+        #gz_topic=f'wamv/thrusters/{side}/thrust',        
         ros_topic=f'thrusters/{side}/thrust',
         gz_type='ignition.msgs.Double',
         ros_type='std_msgs/msg/Float64',
@@ -151,6 +152,7 @@ def thrust_joint_pos(model_name, side):
     # For now, use erb to generate unique topic names in model.sdf.erb
     return Bridge(
         gz_topic=f'{model_name}/thrusters/{side}/pos',
+        #gz_topic=f'wamv/thrusters/{side}/pos',        
         ros_topic=f'thrusters/{side}/pos',
         gz_type='ignition.msgs.Double',
         ros_type='std_msgs/msg/Float64',

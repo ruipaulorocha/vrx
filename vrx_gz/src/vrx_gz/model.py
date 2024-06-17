@@ -245,7 +245,8 @@ class Model:
         print(xacro_command)
 
         # run gz sdf print to generate sdf file
-        model_dir = os.path.join(get_package_share_directory('vrx_gazebo'), 'models', self.model_name)
+        #model_dir = os.path.join(get_package_share_directory('vrx_gazebo'), 'models', self.model_name)
+        model_dir = os.path.join(get_package_share_directory('vrx_gazebo'), 'models', 'wamv')
         model_tmp_dir = os.path.join(model_dir, 'tmp')
         model_output_file = os.path.join(model_tmp_dir, 'model.urdf')
         if not os.path.exists(model_tmp_dir):

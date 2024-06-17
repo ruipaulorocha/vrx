@@ -101,12 +101,12 @@
         <projectile>
           <model_name>blue_projectile</model_name>
           <link_name>link</link_name>
-          <frame>wamv/ball_shooter_launcher_link</frame>
+          <frame>${namespace}/ball_shooter_launcher_link</frame>
           <pose>0.14 0 0 0 0 0</pose>
         </projectile>
-        <num_shots>4</num_shots>
+        <num_shots>10000</num_shots> <!-- it was 4 -->
         <shot_force>65</shot_force>
-        <topic>${namespace}/${shooter_namespace}${name}/fire</topic>
+        <topic>${namespace}/${shooter_namespace}${name}/fire</topic> <!-- corrected: the topic had the fixed prefix wamv-->
       </plugin>
     </gazebo>
   </xacro:macro>

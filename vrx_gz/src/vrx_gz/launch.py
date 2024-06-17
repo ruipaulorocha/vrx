@@ -287,15 +287,20 @@ def spawn(sim_mode, world_name, models, robot=None):
 
             # robot_state_publisher (tf for wamv)
             model_dir = os.path.join(get_package_share_directory('vrx_gazebo'), 'models/wamv/tmp')
+            #model_dir = os.path.join(get_package_share_directory('vrx_gazebo'), 'models', model.model_name,'tmp')
             urdf_file = os.path.join(model_dir, 'model.urdf')
             with open(urdf_file, 'r') as infp:
                 robot_desc = infp.read()
-            params = {'use_sim_time': use_sim_time, 'frame_prefix': 'wamv/', 'robot_description': robot_desc}
+            #params = {'use_sim_time': use_sim_time, 'frame_prefix': 'wamv/', 'robot_description': robot_desc}
+            params = {'use_sim_time': use_sim_time, 'frame_prefix': model.model_name+'/', 'robot_description': robot_desc}
+            #params = {'use_sim_time': use_sim_time, 'frame_prefix': '', 'robot_description': robot_desc}
             nodes.append(Node(package='robot_state_publisher',
                                   executable='robot_state_publisher',
                                   output='both',
                                   parameters=[params],
-                                  remappings=[('/joint_states', '/wamv/joint_states')]))
+                                  #remappings=[('/joint_states', '/wamv/joint_states')]))
+                                  remappings=[('/joint_states', '/'+model.model_name+'/joint_states')]))
+                                  #remappings=[('/joint_states', '/joint_states')]))
 
             group_action = GroupAction([
                 PushRosNamespace(model.model_name),
