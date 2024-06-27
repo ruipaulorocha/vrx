@@ -233,7 +233,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'scale',
             default_value='1.0',
-            description='Scale of wam-v model. e.g. use 0.2 for 1/5 scale'),        
+            description='Scale of wam-v model. e.g. use 0.40 for 1/2.5 scale'),
         # launch setup
         OpaqueFunction(function=launch)
     ])
