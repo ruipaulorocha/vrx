@@ -34,10 +34,11 @@ def parse_from_cli(context, world_name):
     p_rot = LaunchConfiguration('P').perform(context)
     y_rot = LaunchConfiguration('Y').perform(context)
     position = [x_pos, y_pos, z_pos, r_rot, p_rot, y_rot]
+    scale = LaunchConfiguration('scale').perform(context)
 
     robot_urdf = LaunchConfiguration('urdf').perform(context)
 
-    model = Model(robot_name, model_type, position)
+    model = Model(robot_name, model_type, position, scale)
 
     if robot_urdf and robot_urdf != '':
         model.set_urdf(robot_urdf)
@@ -95,7 +96,12 @@ def launch(context, *args, **kwargs):
     launch_processes = []
 
     launch_processes.extend(vrx_gz.launch.spawn(sim_mode, world_name, model))
-    if (sim_mode == 'bridge' or sim_mode == 'full') and bridge_competition_topics:
+
+    namespace = LaunchConfiguration('name').perform(context)
+    if ( (namespace =='wamv' or namespace == 'usv01') and
+        (sim_mode == 'bridge' or sim_mode == 'full') and
+        bridge_competition_topics):
+        # in a multi-robot setting this will be launched only once, for 'usv01'
         launch_processes.extend(vrx_gz.launch.competition_bridges(world_name))
 
     return launch_processes
@@ -224,6 +230,10 @@ def generate_launch_description():
             'urdf',
             default_value='',
             description='URDF file of the wam-v model. '),
+        DeclareLaunchArgument(
+            'scale',
+            default_value='1.0',
+            description='Scale of wam-v model. e.g. use 0.2 for 1/5 scale'),        
         # launch setup
         OpaqueFunction(function=launch)
     ])

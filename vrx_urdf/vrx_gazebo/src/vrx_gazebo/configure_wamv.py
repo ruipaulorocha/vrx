@@ -84,6 +84,7 @@ def create_component_xacro(node):
                                '<robot '
                                'xmlns:xacro="http://ros.org/wiki/xacro" '
                                'name="wam-v-components">\n' +
+                               '<xacro:property name="scale" value="' + node.scale + '" />\n' +
                                '  <xacro:macro name="yaml_components">\n')
 
     # Things to close the macro
@@ -115,12 +116,20 @@ def main(args=None):
     node.declare_parameter('wamv_locked', '')
     node.declare_parameter('components_dir', '')
     node.declare_parameter('thrusters_dir', '')
+    node.declare_parameter('scale', '')
 
     # Check if yaml files were given
     thruster_yaml = node.get_parameter('thruster_yaml').get_parameter_value().string_value
     component_yaml = node.get_parameter('component_yaml').get_parameter_value().string_value
+    node.scale = node.get_parameter('scale').get_parameter_value().string_value
+    received_scale = len(node.scale) > 0
     received_thruster_yaml = len(thruster_yaml) > 0
     received_component_yaml = len(component_yaml) > 0
+
+    # Setup scale
+    if (len(node.scale) == 0):
+        node.scale = '1.0'
+    node.get_logger().info('scale = %s' % node.scale)
 
     thruster_compliant = None
     component_compliant = None
@@ -145,6 +154,8 @@ def main(args=None):
         create_urdf_command += (" locked:=" +
                                 str(wamv_locked))
 
+    create_urdf_command += (" scale:=" + node.scale)
+
     # Add xacro files if created
     if received_thruster_yaml:
         thruster_xacro_target = os.path.splitext(thruster_yaml)[0] + '.xacro'
@@ -155,6 +166,8 @@ def main(args=None):
         component_xacro_target = os.path.splitext(component_yaml)[0] + '.xacro'
         create_urdf_command += (" yaml_component_generation:=true "
                                 "component_xacro_file:=" + component_xacro_target)
+
+    node.get_logger().info('xacro command: %s' % create_urdf_command)
 
     # Create urdf and print to console
     os.system(create_urdf_command)

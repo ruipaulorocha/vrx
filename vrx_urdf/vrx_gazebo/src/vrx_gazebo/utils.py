@@ -123,7 +123,10 @@ def macro_call_gen(name, params={}):
             endline = '>\n'
             insert.append(i[3:])
         else:
-            macro_call += '%s="%s" ' % (i, str(params[i]))
+            if (i == 'x' or i == 'y' or i == 'z'):
+                macro_call += '%s="${%s*scale}" ' % (i, str(params[i]))
+            else:
+                macro_call += '%s="%s" ' % (i, str(params[i]))
     macro_call += endline
     if insert == []:
         return macro_call

@@ -3,29 +3,30 @@
 <xacro:macro name="cpu_cases" params="position:='0 0 0' orientation:='0 0 0'">
   <link name="${namespace}/cpu_cases_link">
     <visual>
-      <origin xyz="0.073 0 -1.53" rpy="0 0 0"/>
+      <origin xyz="${0.073*scale} 0 ${-1.53*scale}" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://vrx_gazebo/models/cpu_cases/mesh/cpu_cases.dae"/>
+        <mesh filename="package://vrx_gazebo/models/cpu_cases/mesh/cpu_cases.dae"
+          scale="${scale} ${scale} ${scale}" />
       </geometry>
     </visual>
     <collision name="cpu_case_1_collision">
-      <origin xyz="0.185 0 0" rpy="0 0 0"/>
+      <origin xyz="${0.185*scale} 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.595 0.83 0.47"/>
+        <box size="${0.595*scale} ${0.83*scale} ${0.47*scale}"/>
       </geometry>
     </collision>
     <collision name="cpu_case_2_collision">
-      <origin xyz="-0.3 0 -0.092" rpy="0 0 0"/>
+      <origin xyz="${-0.3*scale} 0 ${-0.092*scale}" rpy="0 0 0"/>
       <geometry>
-        <box size="0.375 0.64 0.28"/>
+        <box size="${0.375*scale} ${0.64*scale} ${0.28*scale}"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="20"/>
+      <mass value="${20.0*scale*scale*scale}"/>
       <inertia
-        ixx="1.51633333333333"
-        iyy="1.93633333333333"
-        izz="2.71633333333333"
+        ixx="${1.51633333333333*scale*scale*scale*scale*scale}"
+        iyy="${1.93633333333333*scale*scale*scale*scale*scale}"
+        izz="${2.71633333333333*scale*scale*scale*scale*scale}"
         ixy="0"
         ixz="0"
         iyz="0"/>
@@ -56,4 +57,3 @@
 
 </xacro:macro>
 </robot>
-

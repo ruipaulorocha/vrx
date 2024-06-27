@@ -1,26 +1,29 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="wam-v-batteries">
+  <xacro:arg name="scale" default="1.0"/>
+  <xacro:property name="scale" value="$(arg scale)" /> 
   <xacro:macro name="battery" params="prefix position:='0 0 0' orientation:='0 0 0'">
     <link name="${namespace}/${prefix}_battery_link">
       <visual>
-        <origin xyz="0 -1.03 -.45" rpy="0 0 0"/>
+        <origin xyz="0 ${-1.03*scale} ${-0.45*scale}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vrx_gazebo/models/battery/mesh/battery.dae"/>
+          <mesh filename="package://vrx_gazebo/models/battery/mesh/battery.dae"
+            scale="${scale} ${scale} ${scale}" />
         </geometry>
       </visual>
       <collision name="${prefix}_battery_collision">
-        <origin xyz="0 0 .15" rpy="0 0 0"/>
+        <origin xyz="0 0 ${0.15*scale}" rpy="0 0 0"/>
         <geometry>
-          <box size=".6 .4 .31"/>
+          <box size="${0.6*scale} ${0.4*scale} ${0.31*scale}"/>
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 0 .15" rpy=" 0 0 0"/>
-        <mass value="23.5"/>
+        <origin xyz="0 0 ${0.15*scale}" rpy=" 0 0 0"/>
+        <mass value="${23.5*scale*scale*scale}"/>
         <inertia
-          ixx="0.5015291666666667"
-          iyy="0.8931958333333333"
-          izz="1.0183333333333333"
+          ixx="${0.5015291666666667*scale*scale*scale*scale*scale}"
+          iyy="${0.8931958333333333*scale*scale*scale*scale*scale}"
+          izz="${1.0183333333333333*scale*scale*scale*scale*scale}"
           ixy="0"
           ixz="0"
           iyz="0"/>

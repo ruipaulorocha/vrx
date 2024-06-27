@@ -25,6 +25,7 @@ from launch_ros.actions import Node
 
 
 def launch(context, *args, **kwargs):
+    scale = LaunchConfiguration('scale').perform(context)
     wamv_locked = LaunchConfiguration('wamv_locked').perform(context)
     component_yaml = LaunchConfiguration('component_yaml').perform(context)
     thruster_yaml = LaunchConfiguration('thruster_yaml').perform(context)
@@ -47,7 +48,8 @@ def launch(context, *args, **kwargs):
     node = Node(package='vrx_gazebo',
                 executable='generate_wamv.py',
                 output='screen',
-                parameters=[{'wamv_locked': wamv_locked},
+                parameters=[{'scale': scale},
+                            {'wamv_locked': wamv_locked},
                             {'component_yaml': component_yaml},
                             {'thruster_yaml': thruster_yaml},
                             {'wamv_target': wamv_target},
@@ -76,5 +78,9 @@ def generate_launch_description():
             'wamv_target',
             default_value='',
             description='WAM-V target output URDF file'),
+        DeclareLaunchArgument(
+            'scale',
+            default_value='1.0',
+            description='Scale of WAM-V, e.g. 0.32 is 1/3.125 scale'),
         OpaqueFunction(function=launch),
     ])

@@ -8,12 +8,12 @@
         filename="libSurface.so"
         name="vrx::Surface">
         <link_name>${namespace}/base_link</link_name>
-        <hull_length>4.9</hull_length>
-        <hull_radius>0.213</hull_radius>
+        <hull_length>${4.9*scale}</hull_length>
+        <hull_radius>${0.213*scale}</hull_radius>
         <fluid_level>0</fluid_level>
         <points>
-          <point>0.6 1.03 0</point>
-          <point>-1.4 1.03 0</point>
+          <point>${0.6*scale} ${1.03*scale} 0</point>
+          <point>${-1.4*scale} ${1.03*scale} 0</point>
         </points>
         <wavefield>
           <topic>/vrx/wavefield/parameters</topic>
@@ -25,12 +25,12 @@
         filename="libSurface.so"
         name="vrx::Surface">
         <link_name>${namespace}/base_link</link_name>
-        <hull_length>4.9</hull_length>
-        <hull_radius>0.213</hull_radius>
+        <hull_length>${4.9*scale}</hull_length>
+        <hull_radius>${0.213*scale}</hull_radius>
         <fluid_level>0</fluid_level>
         <points>
-          <point>0.6 -1.03 0</point>
-          <point>-1.4 -1.03 0</point>
+          <point>${0.6*scale} ${-1.03*scale} 0</point>
+          <point>${-1.4*scale} ${-1.03*scale} 0</point>
         </points>
         <wavefield>
           <topic>/vrx/wavefield/parameters</topic>
@@ -46,7 +46,7 @@
         <yDotV>0.0</yDotV>
         <nDotR>0.0</nDotR>
         <!-- Linear and quadratic drag -->
-        <xU>100.0</xU>
+<!--         <xU>100.0</xU>
         <xUU>150.0</xUU>
         <yV>100.0</yV>
         <yVV>100.0</yVV>
@@ -56,7 +56,19 @@
         <mQ>900.0</mQ>
         <mQQ>900.0</mQQ>
         <nR>800.0</nR>
-        <nRR>800.0</nRR>
+        <nRR>800.0</nRR> -->
+
+        <xU>${100.0*scale}</xU>
+        <xUU>${150.0*scale}</xUU>
+        <yV>${100.0*scale}</yV>
+        <yVV>${100.0*scale}</yVV>
+        <zW>${500.0*scale}</zW>
+        <kP>${300.0*scale}</kP>
+        <kPP>${600.0*scale}</kPP>
+        <mQ>${900.0*scale}</mQ>
+        <mQQ>${900.0*scale}</mQQ>
+        <nR>${800.0*scale}</nR>
+        <nRR>${800.0*scale}</nRR>
       </plugin>
 
     </gazebo>
