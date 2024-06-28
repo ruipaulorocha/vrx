@@ -21,7 +21,7 @@ from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, TextSubstitution
 from launch.actions import ExecuteProcess, EmitEvent
 from launch.events import Shutdown
 
@@ -278,11 +278,20 @@ def spawn(sim_mode, world_name, models, robot=None):
                 remappings=[bridge.remapping() for bridge in bridges],
             ))
 
-            # tf broadcaster (sensors)
+            # tf broadcaster (sensors and odometry)
+            base_frame = model.model_name + '/' + model.model_name + '/base_link'
+            world_frame = model.model_name + '/odom'
             nodes.append(Node(
                 package='vrx_ros',
                 executable='pose_tf_broadcaster',
                 output='screen',
+                parameters=[
+                    {
+                    'model_name':  TextSubstitution(text = model.model_name),
+                    'base_frame':  TextSubstitution(text = base_frame),
+                    'world_frame': TextSubstitution(text = world_frame),
+                    }
+                ],
             ))
 
             # robot_state_publisher (tf for wamv)
