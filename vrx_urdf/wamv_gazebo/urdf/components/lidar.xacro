@@ -32,11 +32,14 @@
                            R="${R}" P="${P}" Y="${Y}"
                            post_Y="${post_Y}" post_z_from="${post_z_from}"
                            vertical_lasers="1"
-                           samples="1875"
+                           samples="1510"
                            min_vertical_angle="0.0"
                            max_vertical_angle="0.0"
+                           min_angle="-2.530727415391778"
+                           max_angle="2.530727415391778"
                            />
-      <!--1875 samples equates to 0.192 deg. angular resolution -->
+      <!-- 1510 samples equates to 0.192 deg. angular resolution -->
+      <!-- values set in min_angle, max_angle mean a horizontal FoV equal to +/-145 deg. -->
     </xacro:if>
   </xacro:macro>
 </robot>
